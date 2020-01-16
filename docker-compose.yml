@@ -1,0 +1,76 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    image: priority-queue-app
+    ports:
+      - 8080-8089:80
+    volumes:
+      - .:/srv/app
+    links:
+      - mysql
+      - redis
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: ganga
+      DB_USERNAME: app
+      DB_PASSWORD: password
+      REDIS_HOST: redis
+      SESSION_DRIVER: redis
+      CACHE_DRIVER: redis
+  dbsetup:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile-db
+    image: db-migrate
+    depends_on:
+      - "mysql"
+      - "app"
+    volumes:
+      - .:/srv/app
+    links:
+      - mysql
+      - redis
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: ganga
+      DB_USERNAME: app
+      DB_PASSWORD: password
+      REDIS_HOST: redis
+      SESSION_DRIVER: redis
+      CACHE_DRIVER: redis
+  batch:
+    build:
+      context: ./batch
+      dockerfile: Dockerfile-batch
+    image: batch-app
+    ports:
+      - 8090-8099:80
+    volumes:
+      - ./batch:/app/src
+    links:
+      - app
+      - dbsetup
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 13306:3306
+    environment:
+      MYSQL_DATABASE: ganga
+      MYSQL_USER: app
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+  redis:
+    image: redis:4.0-alpine
+    ports:
+      - 16379:6379
+  lb:
+    image: dockercloud/haproxy
+    links:
+     - app
+    ports:
+     - '80:80'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

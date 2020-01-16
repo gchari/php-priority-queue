@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "be5b7e29-567d-49a4-a26c-823a1384e0ab",
+		"name": "Playground",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "add",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t{\n\t\"producerId\": \"123\",\n\t\"command\": \"someCommand\",\n\t\"priority\": \"HIGH\"\n\t},\n\t{\n\t\"producerId\": \"123\",\n\t\"command\": \"someCommand\",\n\t\"priority\": \"MEDIUM\"\n\t},\n\t{\n\t\"producerId\": \"123\",\n\t\"command\": \"someCommand\",\n\t\"priority\": \"LOW\"\n\t}\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:80/index.php/api/task/",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"index.php",
+						"api",
+						"task",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n\t\"id\": \"1\",\n\t\"producerId\": \"1\",\n\t\"command\": \"someCommand\",\n\t\"priority\": \"HIGH\",\n\t\"status\": \"PROCESSED\",\n\t\"processorId\": \"1\"\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:80/index.php/api/task",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"index.php",
+						"api",
+						"task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:80/index.php/api/task",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"index.php",
+						"api",
+						"task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getbyid",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:80/index.php/api/task/1",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"index.php",
+						"api",
+						"task",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
