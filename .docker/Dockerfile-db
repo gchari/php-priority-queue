@@ -1,0 +1,3 @@
+FROM priority-queue-app:latest
+
+ENTRYPOINT ["/srv/app/databasesetup.sh"]
