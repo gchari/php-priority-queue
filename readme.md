@@ -1,4 +1,4 @@
-# Glu Test: Priority Queues: PHP Implementation
+# Priority Queues: PHP Implementation
 # Prerequisite:
 Docker # https://docs.docker.com/install/
 Connection to internet.
